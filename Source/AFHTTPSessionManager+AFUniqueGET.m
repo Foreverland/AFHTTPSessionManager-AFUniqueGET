@@ -8,7 +8,11 @@
           success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
           failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET" URLString:[[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:nil];
+    NSString *path = [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString];
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET"
+                                                                   URLString:path
+                                                                  parameters:parameters
+                                                                       error:nil];
 
     [self request:request exists:^(NSURLSessionDataTask *foundTask) {
         if (foundTask) {
@@ -16,7 +20,8 @@
                 if (task) task(foundTask);
             });
         } else {
-            __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+            __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
+                                                             completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (error) {
                         if (failure) failure(dataTask, error);
@@ -35,7 +40,8 @@
     }];
 }
 
-- (void)request:(NSMutableURLRequest *)request exists:(void (^)(NSURLSessionDataTask *foundTask))exists
+- (void)request:(NSMutableURLRequest *)request
+         exists:(void (^)(NSURLSessionDataTask *foundTask))exists
 {
     __block NSURLSessionDataTask *found;
 
@@ -47,9 +53,7 @@
             }
         }
 
-        if (exists) {
-            exists(found);
-        }
+        if (exists) exists(found);
     }];
 }
 
