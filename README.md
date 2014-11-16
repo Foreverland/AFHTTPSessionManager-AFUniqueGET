@@ -13,7 +13,7 @@ it, simply add the following line to your Podfile:
 
 ### API
 
-```obj
+```objc
 - (void)uniqueGET:(NSString *)URLString
        parameters:(id)parameters
              task:(void (^)(NSURLSessionDataTask *task))task
