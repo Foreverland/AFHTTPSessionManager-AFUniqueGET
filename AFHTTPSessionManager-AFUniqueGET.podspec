@@ -3,7 +3,9 @@ s.name             = "AFHTTPSessionManager-AFUniqueGET"
 s.version          = "0.1"
 s.summary          = "Your GET request is in progress, better reuse it than creating a new one, right?"
 s.description      = <<-DESC
-This category of AFHTTPSessionManager adds the `uniqueGET` method, which is useful if you want to avoid getting multiple times at the same resource if the operation is still in progress.
+This category of AFHTTPSessionManager adds the `uniqueGET` method, which is useful if you want to avoid making multiple calls at the same resource if the operation is still in progress.
+
+We achieve this by checking on-going operations before creating new ones.
 DESC
 s.homepage         = "https://github.com/NSElvis/AFHTTPSessionManager-AFUniqueGET"
 s.license          = 'MIT'
