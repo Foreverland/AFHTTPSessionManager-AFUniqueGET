@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 s.name             = "AFHTTPSessionManager-AFUniqueGET"
 s.version          = "0.1"
-s.summary          = "Your GET request is in progress, better reuse it than creating a new one, right?"
+s.summary          = "Your GET request is in progress, better reuse it than create a new one, right?"
 s.description      = <<-DESC
 This category of AFHTTPSessionManager adds the `uniqueGET` method, which is useful if you want to avoid making multiple calls at the same resource if the operation is still in progress.
 
