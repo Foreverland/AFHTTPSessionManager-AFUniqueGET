@@ -1,6 +1,8 @@
 # AFHTTPSessionManager-AFUniqueGET
 
-This category of AFHTTPSessionManager adds the `uniqueGET` method, which is useful if you want to avoid getting multiple times at the same resource if the operation is still in progress.
+This category of AFHTTPSessionManager adds the `uniqueGET` method, which is useful if you want to avoid making multiple calls at the same resource if the operation is still in progress.
+
+We achieve this by checking on-going operations before creating new ones.
 
 ## Usage
 
