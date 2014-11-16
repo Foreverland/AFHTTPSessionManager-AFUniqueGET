@@ -1,12 +1,9 @@
 Pod::Spec.new do |s|
 s.name             = "AFHTTPSessionManager-AFUniqueGET"
 s.version          = "0.1"
-s.summary          = "A short description of AFHTTPSessionManager-AFUniqueGET."
+s.summary          = "Your GET request is in progress, better reuse it than creating a new one, right?"
 s.description      = <<-DESC
-An optional longer description of AFHTTPSessionManager-AFUniqueGET
-
-* Markdown format.
-* Don't worry about the indent, we strip it!
+This category of AFHTTPSessionManager adds the `uniqueGET` method, which is useful if you want to avoid getting multiple times at the same resource if the operation is still in progress.
 DESC
 s.homepage         = "https://github.com/NSElvis/AFHTTPSessionManager-AFUniqueGET"
 s.license          = 'MIT'
@@ -19,6 +16,5 @@ s.requires_arc = true
 
 s.source_files = 'Source/**/*'
 
-# s.frameworks = 'UIKit', 'MapKit'
-# s.dependency 'AFNetworking', '~> 2.3'
+s.dependency 'AFNetworking'
 end
