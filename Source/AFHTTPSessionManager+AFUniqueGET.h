@@ -1,11 +1,3 @@
-//
-//  AFHTTPSessionManager+AFUniqueGET.h
-//  AFNetworking iOS Example
-//
-//  Created by Elvis Nuñez on 11/16/14.
-//  Copyright (c) 2014 Gowalla. All rights reserved.
-//
-
 #import "AFHTTPSessionManager.h"
 
 @interface AFHTTPSessionManager (AFUniqueGET)
