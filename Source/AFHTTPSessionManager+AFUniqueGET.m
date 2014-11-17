@@ -6,7 +6,7 @@
        parameters:(id)parameters
              task:(void (^)(NSURLSessionDataTask *task))task
           success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+          failure:(void (^)(NSURLSessionDataTask *task, BOOL canceled, NSError *error))failure
 {
     NSString *path = [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString];
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET"
@@ -24,7 +24,9 @@
                                                              completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (error) {
-                        if (failure) failure(dataTask, error);
+                        NSHTTPURLResponse *response = (NSHTTPURLResponse *)dataTask.response;
+                        BOOL canceled = (response.statusCode == 0);
+                        if (failure) failure(dataTask, canceled, error);
                     } else {
                         if (success) success(dataTask, responseObject);
                     }
