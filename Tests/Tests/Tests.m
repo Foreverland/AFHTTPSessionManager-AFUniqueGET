@@ -1,8 +1,9 @@
-//
-//  Tests.m
-//
-
 @import XCTest;
+
+#import "OHHTTPStubs.h"
+#import "OHHTTPStubsResponse+JSON.h"
+#import "AFHTTPSessionManager.h"
+#import "AFHTTPSessionManager+AFUniqueGET.h"
 
 @interface Tests : XCTestCase
 
@@ -14,20 +15,47 @@
 {
     [super setUp];
 
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return YES;
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        return [[OHHTTPStubsResponse responseWithJSONObject:@{@"name" : @"Hello World"}
+                                                 statusCode:200
+                                                    headers:@{@"Content-Type":@"text/json"}]
+                responseTime:15.0f];
+    }];
 }
 
 - (void)tearDown
 {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [OHHTTPStubs removeAllStubs];
 
     [super tearDown];
 }
 
-- (void)testSampleTest
+- (void)testUniqueGET
 {
-    NSArray *array;
-    XCTAssertNil(array);
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Networking expectations"];
+
+    NSURL *url = [NSURL URLWithString:@"http://sample.com"];
+    NSString *path = @"/sample.json";
+
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:url];
+
+    __block NSURLSessionDataTask *currentTask;
+
+    [manager uniqueGET:path parameters:nil task:^(NSURLSessionDataTask *task) {
+        currentTask = task;
+
+        [manager uniqueGET:path parameters:nil
+                      task:^(NSURLSessionDataTask *task) {
+                          XCTAssertEqualObjects(task, currentTask);
+
+                          [expectation fulfill];
+                      } success:nil failure:nil];
+
+    } success:nil failure:nil];
+
+    [self waitForExpectationsWithTimeout:60.0f handler:nil];
 }
 
 @end
