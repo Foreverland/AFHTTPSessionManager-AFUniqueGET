@@ -47,8 +47,16 @@
 {
     __block NSURLSessionDataTask *found;
 
-    [self.session getTasksWithCompletionHandler:^(NSArray * __unused dataTasks, NSArray * __unused uploadTasks, NSArray *downloadTasks) {
+    [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray * __unused uploadTasks, NSArray *downloadTasks) {
+
         for (NSURLSessionDataTask *existingTask in downloadTasks) {
+            if ([[existingTask.originalRequest.URL absoluteString] isEqualToString:[request.URL absoluteString]]) {
+                found = existingTask;
+                break;
+            }
+        }
+
+        for (NSURLSessionDataTask *existingTask in dataTasks) {
             if ([[existingTask.originalRequest.URL absoluteString] isEqualToString:[request.URL absoluteString]]) {
                 found = existingTask;
                 break;
