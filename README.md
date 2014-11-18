@@ -1,5 +1,10 @@
 # AFHTTPSessionManager-AFUniqueGET
 
+[![CI Status](http://img.shields.io/travis/NSElvis/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](https://travis-ci.org/NSElvis/AFHTTPSessionManager-AFUniqueGET)
+[![Version](https://img.shields.io/cocoapods/v/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
+[![License](https://img.shields.io/cocoapods/l/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
+[![Platform](https://img.shields.io/cocoapods/p/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
+
 This category adds the `uniqueGET` method to **AFHTTPSessionManager**, which is useful if you want to avoid making multiple calls at the same resource if the operation is still in progress.
 
 A common request between AFNetworking users (for example [#499](https://github.com/AFNetworking/AFNetworking/issues/499), [#1460](https://github.com/AFNetworking/AFNetworking/issues/1460)).
