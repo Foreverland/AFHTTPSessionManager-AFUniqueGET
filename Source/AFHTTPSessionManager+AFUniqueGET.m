@@ -4,7 +4,7 @@
 
 - (void)uniqueGET:(NSString *)URLString
        parameters:(id)parameters
-             task:(void (^)(NSURLSessionDataTask *task))task
+             task:(void (^)(NSURLSessionDataTask *task, BOOL existing))task
           success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
           failure:(void (^)(NSURLSessionDataTask *task, BOOL canceled, NSError *error))failure
 {
@@ -20,7 +20,7 @@
     [self request:request exists:^(NSURLSessionDataTask *existingTask) {
         if (existingTask) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (task) task(existingTask);
+                if (task) task(existingTask, YES);
             });
         } else {
             __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
@@ -39,7 +39,7 @@
             [dataTask resume];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (task) task(dataTask);
+                if (task) task(dataTask, NO);
             });
         }
     }];
