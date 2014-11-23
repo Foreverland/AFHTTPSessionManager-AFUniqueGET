@@ -43,14 +43,21 @@
 
     __block NSURLSessionDataTask *currentTask;
 
-    [manager uniqueGET:path parameters:nil task:^(NSURLSessionDataTask *task) {
+    [manager uniqueGET:path parameters:nil task:^(NSURLSessionDataTask *task, BOOL existing) {
+
         currentTask = task;
 
+        XCTAssertFalse(existing);
+
         [manager uniqueGET:path parameters:nil
-                      task:^(NSURLSessionDataTask *task) {
+                      task:^(NSURLSessionDataTask *task, BOOL existing) {
+
+                          XCTAssertTrue(existing);
+
                           XCTAssertEqualObjects(task, currentTask);
 
                           [expectation fulfill];
+
                       } success:nil failure:nil];
 
     } success:nil failure:nil];
