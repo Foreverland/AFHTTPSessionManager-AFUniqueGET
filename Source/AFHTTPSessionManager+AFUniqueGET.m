@@ -9,15 +9,18 @@
           failure:(void (^)(NSURLSessionDataTask *task, BOOL canceled, NSError *error))failure
 {
     NSString *path = [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString];
+
+    NSError *error = nil;
     NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:@"GET"
                                                                    URLString:path
                                                                   parameters:parameters
-                                                                       error:nil];
+                                                                       error:&error];
+    if (error) NSLog(@"AFHTTPSessionManager+AFUniqueGET: Error creating request %@", error);
 
-    [self request:request exists:^(NSURLSessionDataTask *foundTask) {
-        if (foundTask) {
+    [self request:request exists:^(NSURLSessionDataTask *existingTask) {
+        if (existingTask) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (task) task(foundTask);
+                if (task) task(existingTask);
             });
         } else {
             __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
@@ -43,27 +46,20 @@
 }
 
 - (void)request:(NSMutableURLRequest *)request
-         exists:(void (^)(NSURLSessionDataTask *foundTask))exists
+         exists:(void (^)(NSURLSessionDataTask *existingTask))exists
 {
-    __block NSURLSessionDataTask *found;
+    __block NSURLSessionDataTask *existingTask;
 
-    [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray * __unused uploadTasks, NSArray *downloadTasks) {
+    [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray * __unused uploadTasks, NSArray * __unused downloadTasks) {
 
-        for (NSURLSessionDataTask *existingTask in downloadTasks) {
-            if ([[existingTask.originalRequest.URL absoluteString] isEqualToString:[request.URL absoluteString]]) {
-                found = existingTask;
+        for (NSURLSessionDataTask *dataTask in dataTasks) {
+            if ([[dataTask.originalRequest.URL absoluteString] isEqualToString:[request.URL absoluteString]]) {
+                existingTask = dataTask;
                 break;
             }
         }
 
-        for (NSURLSessionDataTask *existingTask in dataTasks) {
-            if ([[existingTask.originalRequest.URL absoluteString] isEqualToString:[request.URL absoluteString]]) {
-                found = existingTask;
-                break;
-            }
-        }
-
-        if (exists) exists(found);
+        if (exists) exists(existingTask);
     }];
 }
 
