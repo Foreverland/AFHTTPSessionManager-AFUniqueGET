@@ -27,7 +27,7 @@ it, simply add the following line to your Podfile:
        parameters:(id)parameters
              task:(void (^)(NSURLSessionDataTask *task, BOOL existing))task
           success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-          failure:(void (^)(NSURLSessionDataTask *task, BOOL canceled, NSError *error))failure;
+          failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 ```
 
 ## Author
