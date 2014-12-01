@@ -62,7 +62,7 @@
 
     } success:nil failure:nil];
 
-    [self waitForExpectationsWithTimeout:60.0f handler:nil];
+    [self waitForExpectationsWithTimeout:5.0f handler:nil];
 }
 
 @end
