@@ -8,6 +8,8 @@
           success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
           failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
+    NSParameterAssert(URLString);
+
     NSString *path = [[NSURL URLWithString:URLString relativeToURL:self.baseURL] absoluteString];
 
     NSError *error = nil;
