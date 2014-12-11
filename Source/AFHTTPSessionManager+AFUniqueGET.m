@@ -17,32 +17,38 @@
                                                                    URLString:path
                                                                   parameters:parameters
                                                                        error:&error];
-    if (error) NSLog(@"AFHTTPSessionManager+AFUniqueGET: Error creating request %@", error);
-
-    [self request:request exists:^(NSURLSessionDataTask *existingTask) {
-        if (existingTask) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (task) task(existingTask, YES);
-            });
-        } else {
-            __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
-                                                             completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+    if (error) {
+        if (failure) failure(nil, error);
+    } else {
+        [self request:request exists:^(NSURLSessionDataTask *existingTask) {
+            if (existingTask) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (error) {
-                        if (failure) failure(dataTask, error);
-                    } else {
-                        if (success) success(dataTask, responseObject);
-                    }
+                    if (task) task(existingTask, YES);
                 });
-            }];
+            } else {
+                NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
+                                                         completionHandler:^(NSURLResponse * __unused response,
+                                                                             id responseObject,
+                                                                             NSError *error) {
 
-            [dataTask resume];
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                 if (error) {
+                                                                     if (failure) failure(dataTask, error);
+                                                                 } else {
+                                                                     if (success) success(dataTask, responseObject);
+                                                                 }
+                                                             });
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (task) task(dataTask, NO);
-            });
-        }
-    }];
+                                                         }];
+
+                [dataTask resume];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (task) task(dataTask, NO);
+                });
+            }
+        }];
+    }
 }
 
 - (void)request:(NSMutableURLRequest *)request
@@ -50,7 +56,9 @@
 {
     __block NSURLSessionDataTask *existingTask;
 
-    [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray * __unused uploadTasks, NSArray * __unused downloadTasks) {
+    [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks,
+                                                  NSArray * __unused uploadTasks,
+                                                  NSArray * __unused downloadTasks) {
 
         for (NSURLSessionDataTask *dataTask in dataTasks) {
             if ([[dataTask.originalRequest.URL absoluteString] isEqualToString:[request.URL absoluteString]]) {
