@@ -1,4 +1,4 @@
-# AFHTTPSessionManager-AFUniqueGET
+![AFHTTPSessionManager-AFUniqueGET](https://github.com/NSElvis/Kipu/blob/master/Images/logo.png)
 
 [![CI Status](http://img.shields.io/travis/NSElvis/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](https://travis-ci.org/NSElvis/AFHTTPSessionManager-AFUniqueGET)
 [![Version](https://img.shields.io/cocoapods/v/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
