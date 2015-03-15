@@ -1,4 +1,4 @@
-![AFHTTPSessionManager-AFUniqueGET](https://github.com/NSElvis/AFHTTPSessionManager-AFUniqueGET/blob/master/Images/logo.png)
+![AFHTTPSessionManager-AFUniqueGET](https://raw.githubusercontent.com/NSElvis/AFHTTPSessionManager-AFUniqueGET/master/Images/AFUniqueGET-logo.png)
 
 [![CI Status](http://img.shields.io/travis/NSElvis/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](https://travis-ci.org/NSElvis/AFHTTPSessionManager-AFUniqueGET)
 [![Version](https://img.shields.io/cocoapods/v/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
