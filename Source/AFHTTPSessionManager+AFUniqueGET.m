@@ -18,33 +18,37 @@
                                                                   parameters:parameters
                                                                        error:&error];
     if (error) {
-        if (failure) failure(nil, error);
+        if (failure) {
+            failure(nil, error);
+        }
     } else {
         [self request:request exists:^(NSURLSessionDataTask *existingTask) {
             if (existingTask) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (task) task(existingTask, YES);
+                    if (task) {
+                        task(existingTask, YES);
+                    }
                 });
             } else {
-                NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
-                                                         completionHandler:^(NSURLResponse * __unused response,
-                                                                             id responseObject,
-                                                                             NSError *error) {
-
-                                                             dispatch_async(dispatch_get_main_queue(), ^{
-                                                                 if (error) {
-                                                                     if (failure) failure(dataTask, error);
-                                                                 } else {
-                                                                     if (success) success(dataTask, responseObject);
-                                                                 }
-                                                             });
-
-                                                         }];
+                __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
+                                                                 completionHandler:^(NSURLResponse * __unused response,
+                                                                                     id responseObject,
+                                                                                     NSError *error) {
+                                                                     dispatch_async(dispatch_get_main_queue(), ^{
+                                                                         if (error && failure) {
+                                                                             failure(dataTask, error);
+                                                                         } else if (success) {
+                                                                             success(dataTask, responseObject);
+                                                                         }
+                                                                     });
+                                                                 }];
 
                 [dataTask resume];
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (task) task(dataTask, NO);
+                    if (task) {
+                        task(dataTask, NO);
+                    }
                 });
             }
         }];
@@ -67,7 +71,9 @@
             }
         }
 
-        if (exists) exists(existingTask);
+        if (exists) {
+            exists(existingTask);
+        }
     }];
 }
 
