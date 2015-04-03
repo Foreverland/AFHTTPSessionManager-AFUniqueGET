@@ -18,7 +18,9 @@ We achieve this by checking on-going operations before creating new ones.
 **AFHTTPSessionManager-AFUniqueGET** is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-`pod 'AFHTTPSessionManager-AFUniqueGET'`
+```ruby
+pod 'AFHTTPSessionManager-AFUniqueGET'
+```
 
 ### API
 
