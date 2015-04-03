@@ -1,6 +1,6 @@
-![AFHTTPSessionManager-AFUniqueGET](https://raw.githubusercontent.com/NSElvis/AFHTTPSessionManager-AFUniqueGET/master/Images/AFUniqueGET-logo.png)
+![AFHTTPSessionManager-AFUniqueGET](https://raw.githubusercontent.com/3lvis/AFHTTPSessionManager-AFUniqueGET/master/Images/AFUniqueGET-logo.png)
 
-[![CI Status](http://img.shields.io/travis/NSElvis/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](https://travis-ci.org/NSElvis/AFHTTPSessionManager-AFUniqueGET)
+[![CI Status](http://img.shields.io/travis/3lvis/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](https://travis-ci.org/3lvis/AFHTTPSessionManager-AFUniqueGET)
 [![Version](https://img.shields.io/cocoapods/v/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
 [![License](https://img.shields.io/cocoapods/l/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
 [![Platform](https://img.shields.io/cocoapods/p/AFHTTPSessionManager-AFUniqueGET.svg?style=flat)](http://cocoadocs.org/docsets/AFHTTPSessionManager-AFUniqueGET)
@@ -32,7 +32,7 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-Elvis Nuñez, hello@nselvis.com
+Elvis Nuñez, [elvisnunez@me.com](mailto:elvisnunez@me.com)
 
 ## License
 
