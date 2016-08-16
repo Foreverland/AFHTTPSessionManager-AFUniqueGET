@@ -30,26 +30,30 @@
                     }
                 });
             } else {
-                __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
-                                                                 completionHandler:^(NSURLResponse * __unused response,
-                                                                                     id responseObject,
-                                                                                     NSError *error) {
-                                                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                                                         if (error && failure) {
-                                                                             failure(dataTask, error);
-                                                                         } else if (success) {
-                                                                             success(dataTask, responseObject);
-                                                                         }
-                                                                     });
-                                                                 }];
+                @try {
+                    __block NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request
+                                                                     completionHandler:^(NSURLResponse * __unused response,
+                                                                                         id responseObject,
+                                                                                         NSError *error) {
+                                                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                                             if (error && failure) {
+                                                                                 failure(dataTask, error);
+                                                                             } else if (success) {
+                                                                                 success(dataTask, responseObject);
+                                                                             }
+                                                                         });
+                                                                     }];
+                    
+                    [dataTask resume];
 
-                [dataTask resume];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (task) {
-                        task(dataTask, NO);
-                    }
-                });
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (task) {
+                            task(dataTask, NO);
+                        }
+                    });
+                } @catch (NSException *exception) {
+                    
+                }
             }
         }];
     }
