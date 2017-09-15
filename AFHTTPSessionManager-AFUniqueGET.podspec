@@ -15,5 +15,5 @@ s.social_media_url = 'https://twitter.com/3lvis'
 s.platform     = :ios, '7.0'
 s.requires_arc = true
 s.source_files = 'Source/**/*'
-s.dependency 'AFNetworking'
+s.dependency 'AFNetworking/NSURLSession'
 end
