@@ -12,7 +12,7 @@ s.license          = 'MIT'
 s.author           = { "Elvis Nuñez" => "elvisnunez@me.com" }
 s.source           = { :git => "https://github.com/3lvis/AFHTTPSessionManager-AFUniqueGET.git", :tag => s.version.to_s }
 s.social_media_url = 'https://twitter.com/3lvis'
-s.platform     = :ios, '7.0'
+s.platform     = :ios, '9.0'
 s.requires_arc = true
 s.source_files = 'Source/**/*'
 s.dependency 'AFNetworking'
